@@ -5,7 +5,7 @@ for AI shopping agents, plus a free verifier for merchants.
 
 Live: https://adjkimm.github.io/keystone-site-staging/
 
-## Pages (3)
+## Pages (4)
 
 - `index.html` — what it is, what you get, join the waitlist.
 - `spec.html` — the public credential spec in plain English. Revocation
@@ -13,6 +13,14 @@ Live: https://adjkimm.github.io/keystone-site-staging/
   forever, what it does not stop.
 - `waitlist.html` — two-track pilot waitlist (merchants / builders).
   Posts to the shared platform lead API (`site_id` = `keystone`).
+- `404.html` — plain not-found page in the site's style.
+
+## Notes
+
+- "Agent identity for commerce" is a working title, not a brand. The
+  public footer used to say "working title, the final name is still to
+  come" — that note was removed from the public pages 2026-09-30 and
+  lives here and in NAME-SWAP.md instead.
 
 ## Rules this build follows
 
