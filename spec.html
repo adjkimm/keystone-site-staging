@@ -3,8 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The credential spec &middot; {{PRODUCT_NAME}}</title>
+<title>The credential spec &middot; Agent identity for commerce</title>
 <meta name="description" content="The public credential spec: signed agent identity, revocation first, attestation not guarantee, neutral, verifier free forever.">
+<link rel="canonical" href="https://adjkimm.github.io/keystone-site-staging/spec.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23fbfaf8'/%3E%3Crect x='14' y='12' width='36' height='40' rx='6' fill='none' stroke='%23161616' stroke-width='4'/%3E%3Ccircle cx='32' cy='25' r='6' fill='none' stroke='%23161616' stroke-width='3'/%3E%3Crect x='22' y='36' width='20' height='5' rx='2.5' fill='%23161616'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The credential spec · Agent identity for commerce">
+<meta property="og:description" content="The public credential spec: signed agent identity, revocation first, attestation not guarantee, neutral, verifier free forever.">
+<meta property="og:url" content="https://adjkimm.github.io/keystone-site-staging/spec.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The credential spec · Agent identity for commerce">
+<meta name="twitter:description" content="The public credential spec: signed agent identity, revocation first, attestation not guarantee, neutral, verifier free forever.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -67,6 +76,37 @@
 
   <section class="section">
     <div class="wrap">
+      <h2>Draft technical sketch</h2>
+      <p class="micro">DRAFT. Every value below is provisional and will change. Do not build on this.</p>
+      <ul class="plain-list">
+        <li>Signature algorithm: Ed25519. (Draft.)</li>
+        <li>Credential encoding: JSON, canonicalized before signing. (Draft.)</li>
+        <li>Issuer keys: an Ed25519 keypair. The public key is published at the issuer&rsquo;s URL and referenced by id inside the credential. (Draft.)</li>
+        <li>Revocation: a signed list at a public HTTPS endpoint, fetched and checked on every verification. (Draft.)</li>
+      </ul>
+      <pre class="code">{
+  "credential_id": "draft-0001",
+  "agent": {
+    "id": "agent-123",
+    "name": "Example Shopper",
+    "operator": "Example Inc"
+  },
+  "issuer": {
+    "id": "issuer-1",
+    "name": "Example Issuer",
+    "public_key": "base64url-encoded-ed25519-key"
+  },
+  "issued_at": "2026-09-30T00:00:00Z",
+  "expires_at": "2026-10-30T00:00:00Z",
+  "scope": "demo verification only",
+  "signature": "base64url-encoded-ed25519-signature"
+}</pre>
+      <p class="micro">Example only. Not a real credential.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
       <h2>How a check works</h2>
       <ol class="plain-list">
         <li>Confirm it is a test credential.</li>
@@ -90,7 +130,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p><strong data-product-name>Agent identity for commerce</strong> &middot; working title, the final name is still to come.</p>
+    <p><strong>Agent identity for commerce</strong></p>
     <p class="micro">The verifier is free, forever. &copy; <span data-year>2026</span>.</p>
   </div>
 </footer>
