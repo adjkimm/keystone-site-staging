@@ -3,80 +3,95 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spec: {{PRODUCT_NAME}}</title>
-<meta name="description" content="The one-page credential spec: issuance, presentation, verification, and revocation. Open, neutral, attestation only.">
+<title>The credential spec &middot; {{PRODUCT_NAME}}</title>
+<meta name="description" content="The public credential spec: signed agent identity, revocation first, attestation not guarantee, neutral, verifier free forever.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="placeholder-notice">Working title <strong>Project Keystone</strong>: the real name is still TBD. Nothing here is public yet.</div>
 
 <header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="index.html"><span class="key-mark" aria-hidden="true"></span><span data-product-name>Project Keystone</span></a>
-    <nav class="nav" aria-label="Primary">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" data-product-name>Agent identity for commerce</a>
+    <nav class="nav" aria-label="Main">
       <a href="index.html">Home</a>
-      <a href="how-it-works.html">How it works</a>
-      <a href="merchants.html">Merchants</a>
-      <a href="builders.html">Builders</a>
-      <a href="waitlist.html">Waitlist</a>
+      <a href="spec.html">The credential spec</a>
+      <a href="waitlist.html">Join the waitlist</a>
     </nav>
   </div>
 </header>
 
-<main class="wrap narrow">
-  <p class="eyebrow">The spec</p>
-  <h1>One page. No marketing.</h1>
-  <p class="lede">The full one-page credential spec lands here before anything launches. Written for builders, not marketers. Below is exactly what it will cover.</p>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>The credential spec</h1>
+      <p class="lede">Test draft. Not a standard. Not production. Everything here will change.</p>
+    </div>
+  </section>
 
-  <ol class="spec-outline">
-    <li>
-      <h3>Issuance</h3>
-      <p>How an issuer creates a credential: the fields it carries (agent identifier, issuer identity, public key, capabilities, expiry), how it is signed, and how an issuer publishes its public key. Permissionless: anyone can be an issuer.</p>
-    </li>
-    <li>
-      <h3>Presentation</h3>
-      <p>How an agent presents its credential to a merchant: the transport, the handshake, and what the merchant receives. Designed to sit alongside existing traffic, not replace it.</p>
-    </li>
-    <li>
-      <h3>Verification</h3>
-      <p>How a merchant checks a credential: signature validation, issuer recognition, expiry, and revocation lookup. The verifier returns a signed yes or no in under a second. Free, forever.</p>
-    </li>
-    <li>
-      <h3>Revocation, on page one</h3>
-      <p>How an issuer revokes a credential and how verifiers learn about it, including the honest limits: propagation delay and the corners of revocation at scale that are not solved yet. Stated plainly, not buried in an appendix.</p>
-    </li>
-    <li>
-      <h3>Neutrality pledge</h3>
-      <p>No favored agent platform. No exclusive issuance deals. The verifier treats all issuers by the same rules. Neutrality is a design constraint from day one. <a href="neutrality.html">Read the full pledge</a>.</p>
-    </li>
-    <li>
-      <h3>Attestation, not a guarantee</h3>
-      <p>The spec's language contract: verification attests to identity only. No wording in the spec, the verifier, or any integration may imply that a verified agent is safe, honest, or trustworthy.</p>
-    </li>
-  </ol>
+  <section class="section">
+    <div class="wrap">
+      <h2>Revocation comes first</h2>
+      <p>A credential is only useful if it can be taken away. The issuer keeps a signed list of revoked credentials. The verifier checks the list on every check and rejects anything on it.</p>
+      <p>Honest gaps in this draft: there is no live status check yet, no limit on how old a cached list can be, and no plan yet for a compromised issuer. Do not build production on this draft.</p>
+    </div>
+  </section>
 
-  <h2>Appendix: threat model</h2>
-  <p>A written threat model ships with the spec before any prototype touches real keys: what the system protects against, what it explicitly does not, and who bears the loss when a credential is compromised. The demo below uses clearly fake credentials until that work is done.</p>
+  <section class="section">
+    <div class="wrap">
+      <h2>Attestation, not a guarantee</h2>
+      <p>We verify identity. We do not vouch for behavior. A passing check means &ldquo;this agent is who it claims to be.&rdquo; It never means &ldquo;this agent is safe.&rdquo;</p>
+      <p>There is no badge, checkmark, or seal. Do not describe a passing check as an endorsement.</p>
+    </div>
+  </section>
 
-  <div class="note warn">
-    <strong>Status: in draft.</strong> The spec is being written now. Builders on the <a href="waitlist.html?track=builder">waitlist</a> get it first.
-  </div>
+  <section class="section">
+    <div class="wrap">
+      <h2>Neutral by design</h2>
+      <p>No favored agent platform. No exclusive deals. Any builder can issue credentials under this spec, and the verifier treats every issuer the same.</p>
+      <p>The verifier is free, and it stays free. If this ever becomes infrastructure, it only works if it is neutral, so neutrality is a design constraint now.</p>
+    </div>
+  </section>
 
-  <div class="cta-row">
-    <a class="btn" href="demo.html">Try the demo verifier</a>
-    <a class="btn ghost" href="waitlist.html">Join the waitlist</a>
-  </div>
+  <section class="section">
+    <div class="wrap">
+      <h2>What a credential carries</h2>
+      <ul class="plain-list">
+        <li>The agent: an id, a name, and who operates it.</li>
+        <li>The issuer: an id and a name.</li>
+        <li>Issued and expiry times. Expired credentials are rejected.</li>
+        <li>Scope. In this draft: demo verification only.</li>
+        <li>A signature over the whole thing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>How a check works</h2>
+      <ol class="plain-list">
+        <li>Confirm it is a test credential.</li>
+        <li>Check the signature against the issuer&rsquo;s public key.</li>
+        <li>Reject it if it has expired.</li>
+        <li>Reject it if it is on the revocation list.</li>
+      </ol>
+      <p>All four must pass.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What it does not stop</h2>
+      <p>A stolen key used before revocation spreads. A compromised issuer. An agent that is correctly identified but behaves badly. Identity is not behavior.</p>
+      <p>Who bears the loss when a credential is stolen is undecided. It will be written before any real pilot.</p>
+      <p><a class="btn" href="waitlist.html">Join the pilot waitlist</a></p>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <span><span data-product-name>Project Keystone</span> · <span data-year>2026</span> · Working title, pre-launch</span>
-    <nav aria-label="Footer">
-      <a href="spec.html">Spec</a>
-      <a href="demo.html">Demo</a>
-      <a href="waitlist.html">Waitlist</a>
-      <a href="neutrality.html">Neutrality</a>
-    </nav>
+  <div class="wrap">
+    <p><strong data-product-name>Agent identity for commerce</strong> &middot; working title, the final name is still to come.</p>
+    <p class="micro">The verifier is free, forever. &copy; <span data-year>2026</span>.</p>
   </div>
 </footer>
 
