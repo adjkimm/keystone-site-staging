@@ -55,11 +55,41 @@
      Contract: {site_id, name, email, business, domain, source}.
      The track and the one track question fold into `source`
      (max 120 chars) since the API accepts no other fields. */
+  /* Domain normalization: strip scheme, path, query, fragment,
+     trailing dots. "https://www.store.com/path" -> "www.store.com". */
+  function normalizeDomain(raw) {
+    var d = String(raw || "").trim().toLowerCase();
+    d = d.replace(/^[a-z][a-z0-9+.-]*:\/\//, "");
+    d = d.split(/[\/?#]/)[0];
+    d = d.replace(/\.+$/, "");
+    return d;
+  }
+
   var form = document.getElementById("waitlist-form");
   if (form) {
+    var status = document.getElementById("form-status");
+    var nameField = document.getElementById("f-name");
+    var emailField = document.getElementById("f-email");
+    var companyField = document.getElementById("f-company");
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    function clearInvalid() {
+      [nameField, emailField, companyField].forEach(function (f) {
+        if (f) f.removeAttribute("aria-invalid");
+      });
+    }
+
+    function fail(field, msg) {
+      status.textContent = msg;
+      if (field) {
+        field.setAttribute("aria-invalid", "true");
+        field.focus();
+      }
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var status = document.getElementById("form-status");
+      clearInvalid();
       var api = (typeof LEAD_API !== "undefined") ? LEAD_API : null;
       var siteId = (typeof LEAD_SITE_ID !== "undefined") ? LEAD_SITE_ID : "keystone";
       var checked = document.querySelector('input[name="track"]:checked');
@@ -67,10 +97,10 @@
 
       var data = {
         site_id: siteId,
-        name: document.getElementById("f-name").value.trim(),
-        email: document.getElementById("f-email").value.trim().toLowerCase(),
-        business: document.getElementById("f-company").value.trim(),
-        domain: document.getElementById("f-domain").value.trim().toLowerCase(),
+        name: nameField.value.trim(),
+        email: emailField.value.trim().toLowerCase(),
+        business: companyField.value.trim(),
+        domain: normalizeDomain(document.getElementById("f-domain").value),
         source: "waitlist-" + track
       };
 
@@ -85,14 +115,16 @@
       }
       data.source = data.source.slice(0, 120);
 
-      if (data.name.length < 2) { status.textContent = "Please enter your name."; return; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { status.textContent = "Please enter a valid email address."; return; }
-      if (data.business.length < 2) { status.textContent = "Please enter your company name."; return; }
+      if (data.name.length < 2) { fail(nameField, "Please enter your name."); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { fail(emailField, "Please enter a valid email address."); return; }
+      if (data.business.length < 2) { fail(companyField, "Please enter your company name."); return; }
       if (!api) {
         status.textContent = "The waitlist is not live yet. Your details were not sent anywhere.";
         return;
       }
+      submitBtn.disabled = true;
       status.textContent = "Sending...";
+      function enableBtn() { submitBtn.disabled = false; }
       fetch(api, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -102,6 +134,7 @@
           if (res.ok && res.body.ok) {
             form.reset();
             syncTrack();
+            clearInvalid();
             status.textContent = "You are on the list. We will reach out when the pilot opens.";
           } else if (res.body && res.body.fields) {
             var first = Object.keys(res.body.fields)[0];
@@ -109,8 +142,10 @@
           } else {
             status.textContent = "Something went wrong. Please try again.";
           }
+        }, function () {
+          status.textContent = "Something went wrong. Please try again.";
         })
-        .catch(function () { status.textContent = "Something went wrong. Please try again."; });
+        .then(enableBtn, enableBtn);
     });
   }
   /* ---- Free agent-access check (speed-test hero) ----
@@ -139,7 +174,7 @@
 
     accessForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      var domain = domainInput.value.trim();
+      var domain = normalizeDomain(domainInput.value);
       if (!domain) {
         setStatus("Type a domain first, like yourstore.com.");
         return;
@@ -153,11 +188,17 @@
       resultsEl.hidden = true;
       setStatus("Checking…");
 
-      fetch(api + "?domain=" + encodeURIComponent(domain))
+      /* Render sleeps the API when idle; wake-ups take 30-60s.
+         25s timeout with an honest message instead of a hanging spinner. */
+      var controller = new AbortController();
+      var timer = setTimeout(function () { controller.abort(); }, 25000);
+
+      fetch(api + "?domain=" + encodeURIComponent(domain), { signal: controller.signal })
         .then(function (r) {
           return r.json().then(function (j) { return { ok: r.ok, body: j }; });
         })
         .then(function (res) {
+          clearTimeout(timer);
           checkBtn.disabled = false;
           if (!res.ok || !res.body || !res.body.agents) {
             setStatus((res.body && res.body.error) ||
@@ -166,7 +207,7 @@
           }
           var body = res.body;
           var s = body.summary;
-          domainEl.textContent = body.domain;
+          domainEl.textContent = domain;
           summaryEl.textContent = s.can_reach + " of " + s.total +
             " can reach \u00B7 " + s.blocked + " blocked \u00B7 " +
             s.unknown + " unknown";
@@ -202,9 +243,14 @@
           setStatus("");
           resultsEl.hidden = false;
         })
-        .catch(function () {
+        .catch(function (err) {
+          clearTimeout(timer);
           checkBtn.disabled = false;
-          setStatus("Something went wrong. Please try again.");
+          if (err && err.name === "AbortError") {
+            setStatus("The checker is still waking up. Try again in a few seconds.");
+          } else {
+            setStatus("Something went wrong. Please try again.");
+          }
         });
     });
   }
