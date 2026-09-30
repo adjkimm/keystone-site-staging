@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PRODUCT_NAME}}: identity for AI agents</title>
+<meta name="description" content="Signed identity credentials for AI agents, so merchants can verify who an agent is instead of trusting what it claims.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="placeholder-notice">Working title <strong>Project Keystone</strong>: the real name is still TBD. Nothing here is public yet.</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="key-mark" aria-hidden="true"></span><span data-product-name>Project Keystone</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="merchants.html">Merchants</a>
+      <a href="builders.html">Builders</a>
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Signed identity for AI agents</p>
+    <h1>AI agents are becoming real counterparties. Right now, nobody can verify who they are.</h1>
+    <p class="lede">A merchant's logs show whatever an agent claims about itself in headers anyone can spoof. <span data-product-name>Project Keystone</span> gives agents cryptographically signed identity credentials, and gives merchants a way to check them. Not what the agent says. What the math says.</p>
+    <div class="cta-row">
+      <a class="btn" href="demo.html">Try the demo verifier</a>
+      <a class="btn ghost" href="waitlist.html">Join the pilot waitlist</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>The problem in one line</h2>
+    <p>Agents browse, negotiate, and buy on behalf of users, but a merchant has no standard way to answer: who sent this agent, and is it who it claims to be?</p>
+    <div class="grid three">
+      <div class="card">
+        <h3>Unverifiable counterparties</h3>
+        <p>User-agent strings and headers are trivially faked. There is no standard way to prove which agent did what.</p>
+      </div>
+      <div class="card">
+        <h3>Abuse is cheap</h3>
+        <p>Scraping, price manipulation, and fake orders all get easier when the attacker is software acting at scale. Merchants cannot tell a legitimate shopping agent from a hostile bot.</p>
+      </div>
+      <div class="card">
+        <h3>Liability is unpriced</h3>
+        <p>When an agent makes a bad purchase or leaks data, nobody can prove which agent did it or who is responsible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we are building</h2>
+    <div class="grid three">
+      <div class="card">
+        <p class="step-no">01</p>
+        <h3>Verify</h3>
+        <p>A merchant presents an agent's credential and gets a signed yes or no: this agent is who it claims, issued by whom, still valid. The verifier is free, forever.</p>
+      </div>
+      <div class="card">
+        <p class="step-no">02</p>
+        <h3>See</h3>
+        <p>A dashboard showing which identified agents visited a store, what they looked at, and what they bought.</p>
+      </div>
+      <div class="card">
+        <p class="step-no">03</p>
+        <h3>Monitor</h3>
+        <p>Alerts when an unknown, revoked, or suspicious agent shows up.</p>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Attestation, not a guarantee.</strong> We verify identity. We do not vouch for behavior. A credential that checks out means "this agent is who it claims to be," never "this agent is safe."
+    </div>
+  </section>
+
+  <section>
+    <h2>Two ways in</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Run a store</h3>
+        <p>Find out which agents are in your logs and what they did. Verify agent traffic instead of guessing.</p>
+        <p><a href="merchants.html">For merchants</a></p>
+      </div>
+      <div class="card">
+        <h3>Build agents</h3>
+        <p>Issue signed credentials your agents can present anywhere, under an open spec no one owns.</p>
+        <p><a href="builders.html">For builders</a></p>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="btn" href="waitlist.html">Join the pilot waitlist</a>
+      <a class="btn ghost" href="spec.html">Read the spec outline</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span><span data-product-name>Project Keystone</span> · <span data-year>2026</span> · Working title, pre-launch</span>
+    <nav aria-label="Footer">
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
