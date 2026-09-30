@@ -11,3 +11,6 @@ const PRODUCT_NAME = "Agent identity for commerce";   /* <-- change this one lin
    The platform API recognizes the "keystone" site_id. */
 const LEAD_API = "https://platform-api-yf9l.onrender.com/api/v1/leads";
 const LEAD_SITE_ID = "keystone";
+
+/* Free agent-access check: GET /api/agent-access?domain=example.com */
+const ACCESS_API = "https://platform-api-yf9l.onrender.com/api/agent-access";

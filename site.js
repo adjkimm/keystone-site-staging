@@ -113,4 +113,99 @@
         .catch(function () { status.textContent = "Something went wrong. Please try again."; });
     });
   }
+  /* ---- Free agent-access check (speed-test hero) ----
+     GET ACCESS_API?domain=example.com -> per-agent verdicts.
+     Honest framing: which agents CAN reach the store, not live visitors. */
+  var accessForm = document.getElementById("access-form");
+  if (accessForm) {
+    var domainInput = document.getElementById("access-domain");
+    var checkBtn = document.getElementById("access-btn");
+    var statusEl = document.getElementById("access-status");
+    var resultsEl = document.getElementById("access-results");
+    var domainEl = document.getElementById("results-domain");
+    var summaryEl = document.getElementById("results-summary");
+    var listEl = document.getElementById("agent-list");
+
+    var VERDICT_LABEL = {
+      can_reach: "Can reach",
+      blocked: "Blocked",
+      unknown: "Unknown"
+    };
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+      statusEl.hidden = !msg;
+    }
+
+    accessForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var domain = domainInput.value.trim();
+      if (!domain) {
+        setStatus("Type a domain first, like yourstore.com.");
+        return;
+      }
+      var api = (typeof ACCESS_API !== "undefined") ? ACCESS_API : null;
+      if (!api) {
+        setStatus("The checker is not live yet. Please try again later.");
+        return;
+      }
+      checkBtn.disabled = true;
+      resultsEl.hidden = true;
+      setStatus("Checking…");
+
+      fetch(api + "?domain=" + encodeURIComponent(domain))
+        .then(function (r) {
+          return r.json().then(function (j) { return { ok: r.ok, body: j }; });
+        })
+        .then(function (res) {
+          checkBtn.disabled = false;
+          if (!res.ok || !res.body || !res.body.agents) {
+            setStatus((res.body && res.body.error) ||
+              "Something went wrong. Please try again.");
+            return;
+          }
+          var body = res.body;
+          var s = body.summary;
+          domainEl.textContent = body.domain;
+          summaryEl.textContent = s.can_reach + " of " + s.total +
+            " can reach \u00B7 " + s.blocked + " blocked \u00B7 " +
+            s.unknown + " unknown";
+          listEl.innerHTML = "";
+          body.agents.forEach(function (a) {
+            var li = document.createElement("li");
+            li.className = "agent-row v-" + a.verdict;
+            var dot = document.createElement("span");
+            dot.className = "dot";
+            dot.setAttribute("aria-hidden", "true");
+            var main = document.createElement("div");
+            main.className = "agent-main";
+            var name = document.createElement("span");
+            name.className = "agent-name";
+            name.textContent = a.name;
+            var kind = document.createElement("span");
+            kind.className = "agent-kind";
+            kind.textContent = a.kind;
+            var note = document.createElement("span");
+            note.className = "agent-note";
+            note.textContent = a.blurb + " " + a.note;
+            main.appendChild(name);
+            main.appendChild(kind);
+            main.appendChild(note);
+            var verdict = document.createElement("span");
+            verdict.className = "verdict";
+            verdict.textContent = VERDICT_LABEL[a.verdict] || a.verdict;
+            li.appendChild(dot);
+            li.appendChild(main);
+            li.appendChild(verdict);
+            listEl.appendChild(li);
+          });
+          setStatus("");
+          resultsEl.hidden = false;
+        })
+        .catch(function () {
+          checkBtn.disabled = false;
+          setStatus("Something went wrong. Please try again.");
+        });
+    });
+  }
 })();

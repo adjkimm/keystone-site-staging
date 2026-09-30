@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{PRODUCT_NAME}}</title>
-<meta name="description" content="Signed identity credentials for AI shopping agents, and a free verifier for merchants. Join the pilot waitlist.">
+<meta name="description" content="Not sure if AI shoppers can reach your store? Type your domain and see which AI agents can get in. Free check.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,28 +23,38 @@
 <main>
   <section class="hero">
     <div class="wrap">
-      <h1>Which AI agents are in your store?</h1>
-      <p class="lede">AI agents browse and buy now. A merchant can only see what an agent claims about itself, and anyone can fake that claim.</p>
-      <p>We give agents signed identity credentials. Merchants get a free verifier. A check answers one question: is this agent who it claims to be. It never says the agent is safe.</p>
-      <p><a class="btn" href="waitlist.html">Join the pilot waitlist</a></p>
+      <h1>Not sure if AI shoppers can reach your store?</h1>
+      <p class="lede">Type your domain. See which AI agents can get in, and which ones you've blocked.</p>
+
+      <form id="access-form" class="checker" autocomplete="off">
+        <input id="access-domain" type="text" inputmode="url"
+               placeholder="yourstore.com" aria-label="Your store domain">
+        <button type="submit" class="btn" id="access-btn">Check</button>
+      </form>
+      <p class="micro">Free. Takes about 10 seconds. We only read your public homepage and robots.txt.</p>
+
+      <p id="access-status" class="check-status" role="status" hidden></p>
+
+      <div id="access-results" class="results-card" hidden>
+        <div class="results-head">
+          <div class="results-domain" id="results-domain"></div>
+          <div class="micro" id="results-summary"></div>
+        </div>
+        <ul class="agent-list" id="agent-list"></ul>
+        <p class="micro honest">This shows which AI agents <em>can</em> reach your store &mdash; not which ones are visiting now.</p>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <h2>Two ways in</h2>
-      <p><strong>Merchants:</strong> check the agents visiting your store.</p>
-      <p><strong>Builders:</strong> issue credentials for the agents you run.</p>
-      <p class="micro">To join the pilot we need three things: your company name, your name, and real agent traffic.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <h2>The honest terms</h2>
-      <p>This is a pilot, not a product. The verifier is free, and it stays free.</p>
-      <p>We verify identity. We do not vouch for behavior. A credential can be revoked, and the verifier checks every time.</p>
-      <p><a class="btn" href="waitlist.html">Join the pilot waitlist</a></p>
+      <h2>Want to know who's actually visiting?</h2>
+      <p>This check shows who <em>can</em> get in. The pilot answers the live question: which agents visit your store, and whether they're who they claim.</p>
+      <p class="track-links">
+        <a class="btn-quiet" href="waitlist.html?track=merchant">I'm a merchant</a>
+        <a class="btn-quiet" href="waitlist.html?track=builder">I build agents</a>
+      </p>
+      <p class="micro">The verifier is free, forever.</p>
     </div>
   </section>
 </main>

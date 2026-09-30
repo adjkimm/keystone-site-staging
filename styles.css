@@ -195,3 +195,155 @@ p { margin: 0 0 14px; }
   .hero { padding: 40px 0 4px; }
   .nav { gap: 14px; }
 }
+
+/* ---- Access checker (speed-test hero) ---- */
+.checker {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 10px;
+  max-width: 520px;
+}
+
+.checker input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #c9c5bb;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 17px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--ink);
+}
+
+.checker input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.checker .btn { white-space: nowrap; }
+
+.check-status {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 14px 0 0;
+}
+
+/* ---- Results card ---- */
+.results-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+}
+
+.results-head {
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.results-domain {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.results-head .micro { margin: 4px 0 0; }
+
+.agent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.agent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.agent-row:first-child { border-top: 0; }
+
+.dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 7px;
+}
+
+.v-can_reach .dot { background: #2e7d4f; }
+.v-blocked .dot { background: #b3541e; }
+.v-unknown .dot { background: #a8a49a; }
+
+.agent-main { flex: 1; min-width: 0; }
+
+.agent-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.agent-kind {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.agent-note {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.verdict {
+  flex: none;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.v-can_reach .verdict { color: #2e7d4f; }
+.v-blocked .verdict { color: #b3541e; }
+.v-unknown .verdict { color: #8a877e; }
+
+.honest {
+  margin: 0;
+  padding: 12px 18px 14px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+/* ---- Quiet secondary buttons ---- */
+.btn-quiet {
+  display: inline-block;
+  border: 1px solid #c9c5bb;
+  border-radius: 6px;
+  padding: 11px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  background: #fff;
+}
+
+.btn-quiet:hover { border-color: var(--ink); }
+
+.track-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 14px;
+}
+
+@media (max-width: 520px) {
+  .checker { flex-direction: column; }
+  .checker .btn { width: 100%; }
+  .agent-kind { display: block; margin-left: 0; }
+}
