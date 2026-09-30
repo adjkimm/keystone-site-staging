@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pilot waitlist: {{PRODUCT_NAME}}</title>
+<meta name="description" content="Join the pilot waitlist: one track for merchants who want to verify agent traffic, one for builders who want to issue credentials.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="placeholder-notice">Working title <strong>Project Keystone</strong>: the real name is still TBD. Nothing here is public yet.</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="key-mark" aria-hidden="true"></span><span data-product-name>Project Keystone</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="merchants.html">Merchants</a>
+      <a href="builders.html">Builders</a>
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap narrow">
+  <p class="eyebrow">Pilot waitlist</p>
+  <h1>Two tracks. Pick yours.</h1>
+  <p class="lede">The pilot opens to a small group on each side. Tell us which side you are on and what you would do with it.</p>
+
+  <form id="waitlist-form" novalidate>
+    <div class="track-picker" role="radiogroup" aria-label="Waitlist track">
+      <label>
+        <input type="radio" name="track" value="merchant" checked>
+        <strong>Track A: Merchants</strong><br>
+        <span class="fine">I run a store and want to verify the agents visiting it.</span>
+      </label>
+      <label>
+        <input type="radio" name="track" value="builder">
+        <strong>Track B: Builders</strong><br>
+        <span class="fine">I build agents and want to issue them signed credentials.</span>
+      </label>
+    </div>
+
+    <div class="field">
+      <label for="f-name">Your name</label>
+      <input type="text" id="f-name" name="name" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="f-email">Work email</label>
+      <input type="email" id="f-email" name="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="f-company">Company</label>
+      <input type="text" id="f-company" name="company" autocomplete="organization">
+    </div>
+    <div class="field track-merchant-only">
+      <label for="f-domain">Store domain</label>
+      <input type="text" id="f-domain" name="domain" placeholder="example.com" autocomplete="url">
+    </div>
+    <div class="field track-builder-only" style="display:none">
+      <label for="f-project">What your agents do</label>
+      <textarea id="f-project" name="project" placeholder="One or two sentences about the agents you build."></textarea>
+    </div>
+
+    <button class="btn" type="submit">Join the waitlist</button>
+    <p id="form-status" role="status"></p>
+  </form>
+
+  <div class="note" style="margin-top:2.5rem">
+    <strong>What counts as a pilot request:</strong> a named company, a named human, and real agent traffic. Anonymous emails do not count. We report the two tracks separately, because where the pull comes from decides what we build first.
+  </div>
+  <p class="fine">We will only use your details to contact you about the pilot. No newsletter, no sharing, no exceptions.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span><span data-product-name>Project Keystone</span> · <span data-year>2026</span> · Working title, pre-launch</span>
+    <nav aria-label="Footer">
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
