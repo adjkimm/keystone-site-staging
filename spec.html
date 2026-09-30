@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec: {{PRODUCT_NAME}}</title>
+<meta name="description" content="The one-page credential spec: issuance, presentation, verification, and revocation. Open, neutral, attestation only.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="placeholder-notice">Working title <strong>Project Keystone</strong>: the real name is still TBD. Nothing here is public yet.</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="key-mark" aria-hidden="true"></span><span data-product-name>Project Keystone</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="merchants.html">Merchants</a>
+      <a href="builders.html">Builders</a>
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap narrow">
+  <p class="eyebrow">The spec</p>
+  <h1>One page. No marketing.</h1>
+  <p class="lede">The full one-page credential spec lands here before anything launches. Written for builders, not marketers. Below is exactly what it will cover.</p>
+
+  <ol class="spec-outline">
+    <li>
+      <h3>Issuance</h3>
+      <p>How an issuer creates a credential: the fields it carries (agent identifier, issuer identity, public key, capabilities, expiry), how it is signed, and how an issuer publishes its public key. Permissionless: anyone can be an issuer.</p>
+    </li>
+    <li>
+      <h3>Presentation</h3>
+      <p>How an agent presents its credential to a merchant: the transport, the handshake, and what the merchant receives. Designed to sit alongside existing traffic, not replace it.</p>
+    </li>
+    <li>
+      <h3>Verification</h3>
+      <p>How a merchant checks a credential: signature validation, issuer recognition, expiry, and revocation lookup. The verifier returns a signed yes or no in under a second. Free, forever.</p>
+    </li>
+    <li>
+      <h3>Revocation, on page one</h3>
+      <p>How an issuer revokes a credential and how verifiers learn about it, including the honest limits: propagation delay and the corners of revocation at scale that are not solved yet. Stated plainly, not buried in an appendix.</p>
+    </li>
+    <li>
+      <h3>Neutrality pledge</h3>
+      <p>No favored agent platform. No exclusive issuance deals. The verifier treats all issuers by the same rules. Neutrality is a design constraint from day one. <a href="neutrality.html">Read the full pledge</a>.</p>
+    </li>
+    <li>
+      <h3>Attestation, not a guarantee</h3>
+      <p>The spec's language contract: verification attests to identity only. No wording in the spec, the verifier, or any integration may imply that a verified agent is safe, honest, or trustworthy.</p>
+    </li>
+  </ol>
+
+  <h2>Appendix: threat model</h2>
+  <p>A written threat model ships with the spec before any prototype touches real keys: what the system protects against, what it explicitly does not, and who bears the loss when a credential is compromised. The demo below uses clearly fake credentials until that work is done.</p>
+
+  <div class="note warn">
+    <strong>Status: in draft.</strong> The spec is being written now. Builders on the <a href="waitlist.html?track=builder">waitlist</a> get it first.
+  </div>
+
+  <div class="cta-row">
+    <a class="btn" href="demo.html">Try the demo verifier</a>
+    <a class="btn ghost" href="waitlist.html">Join the waitlist</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span><span data-product-name>Project Keystone</span> · <span data-year>2026</span> · Working title, pre-launch</span>
+    <nav aria-label="Footer">
+      <a href="spec.html">Spec</a>
+      <a href="demo.html">Demo</a>
+      <a href="waitlist.html">Waitlist</a>
+      <a href="neutrality.html">Neutrality</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
