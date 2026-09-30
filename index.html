@@ -18,10 +18,7 @@
       <a href="how-it-works.html">How it works</a>
       <a href="merchants.html">Merchants</a>
       <a href="builders.html">Builders</a>
-      <a href="spec.html">Spec</a>
-      <a href="demo.html">Demo</a>
       <a href="waitlist.html">Waitlist</a>
-      <a href="neutrality.html">Neutrality</a>
     </nav>
   </div>
 </header>
@@ -40,41 +37,12 @@
   <section>
     <h2>The problem in one line</h2>
     <p>Agents browse, negotiate, and buy on behalf of users, but a merchant has no standard way to answer: who sent this agent, and is it who it claims to be?</p>
-    <div class="grid three">
-      <div class="card">
-        <h3>Unverifiable counterparties</h3>
-        <p>User-agent strings and headers are trivially faked. There is no standard way to prove which agent did what.</p>
-      </div>
-      <div class="card">
-        <h3>Abuse is cheap</h3>
-        <p>Scraping, price manipulation, and fake orders all get easier when the attacker is software acting at scale. Merchants cannot tell a legitimate shopping agent from a hostile bot.</p>
-      </div>
-      <div class="card">
-        <h3>Liability is unpriced</h3>
-        <p>When an agent makes a bad purchase or leaks data, nobody can prove which agent did it or who is responsible.</p>
-      </div>
-    </div>
+    <p>Headers are trivially faked. Abuse is cheap, and when an agent does something bad, nobody can prove which agent did it or who is responsible.</p>
   </section>
 
   <section>
     <h2>What we are building</h2>
-    <div class="grid three">
-      <div class="card">
-        <p class="step-no">01</p>
-        <h3>Verify</h3>
-        <p>A merchant presents an agent's credential and gets a signed yes or no: this agent is who it claims, issued by whom, still valid. The verifier is free, forever.</p>
-      </div>
-      <div class="card">
-        <p class="step-no">02</p>
-        <h3>See</h3>
-        <p>A dashboard showing which identified agents visited a store, what they looked at, and what they bought.</p>
-      </div>
-      <div class="card">
-        <p class="step-no">03</p>
-        <h3>Monitor</h3>
-        <p>Alerts when an unknown, revoked, or suspicious agent shows up.</p>
-      </div>
-    </div>
+    <p>We issue signed identity credentials to AI agents, and we run a free verifier any merchant can use to check them. The answer is a signed yes or no: this agent is who it claims to be, issued by whom, still valid. Never "this agent is safe."</p>
     <div class="note">
       <strong>Attestation, not a guarantee.</strong> We verify identity. We do not vouch for behavior. A credential that checks out means "this agent is who it claims to be," never "this agent is safe."
     </div>
