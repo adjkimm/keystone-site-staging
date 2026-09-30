@@ -1,23 +1,21 @@
 # Name swap checklist — company #2 site
 
 "Agent identity for commerce" is a working title, not a brand. When Andrew
-picks the real name, follow these steps. Nothing else in the copy references
-the working title.
+picks the real name, follow these steps.
 
-## The one-line swap
+## The swap (name is baked into the HTML)
 
-1. Open `config.js`.
-2. Change `PRODUCT_NAME` to the real name, e.g.
-   `const PRODUCT_NAME = "Acme Identity";`
-3. Every page updates: masthead, `<title>` tags (via the
-   `{{PRODUCT_NAME}}` token), and footer. No other file needs editing for
-   the name itself.
+The product name now lives as literal text in each HTML file — `<title>`
+tags, the masthead brand link, and the footer — so link previews and
+search engines see it with no JavaScript. `config.js` `PRODUCT_NAME`
+remains only as a JS fallback. To swap the name:
 
-## After the swap
-
-4. Update the footer line "working title, the final name is still to come"
-   in each HTML file (search for `working title`).
-5. If the real name has a domain, point it at this site.
+1. In `index.html`, `waitlist.html`, `spec.html`, and `404.html`:
+   replace the literal "Agent identity for commerce" in the `<title>`
+   tag, the `.brand` link, and the footer `<strong>`.
+2. Update the `og:title` / `twitter:title` meta tags on each page.
+3. Update `PRODUCT_NAME` in `config.js` to match (fallback only).
+4. If the real name has a domain, point it at this site.
 
 ## Waitlist wiring
 
@@ -32,7 +30,7 @@ the working title.
 ## Files (clean rebuild 2026-09-30)
 
 - `config.js`, `site.js`, `styles.css`
-- `index.html`, `spec.html`, `waitlist.html`
+- `index.html`, `spec.html`, `waitlist.html`, `404.html`
 - `.nojekyll`, `README.md`, `NAME-SWAP.md`
 
 The pre-rebuild staging site (8 pages incl. demo prototype) is archived at
