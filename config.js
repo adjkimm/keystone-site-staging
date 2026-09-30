@@ -12,9 +12,8 @@ const PRODUCT_NAME = "Project Keystone";   /* <-- change this one line */
    name is chosen. */
 const SHOW_PLACEHOLDER_NOTICE = true;
 
-/* Waitlist: posts to the platform lead API when enabled.
-   The API needs a "keystone" entry in SITES_CONFIG first.
-   While null, the form shows a "preview mode" notice instead
-   of submitting. */
-const LEAD_API = null; /* set to the leads endpoint URL once the platform API has a "keystone" site entry */
+/* Waitlist: posts to the platform lead API.
+   The platform API has a "keystone" entry in SITES_CONFIG (added 2026-09-30),
+   so the live endpoint is set below. */
+const LEAD_API = "https://platform-api-yf9l.onrender.com/api/v1/leads";
 const LEAD_SITE_ID = "keystone";
